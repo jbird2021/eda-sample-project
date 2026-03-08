@@ -8,7 +8,8 @@
   rules:
     - name: Read raw payload 
       condition: 
-        any:
+        - event.payload.message == "Ansible is super cool1!" or event.payload.message == "Ansible is super cool!"
+        #any:
          # - event.meta is defined 
          # - event.payload is defined
           - event.payload.message == "Ansible is super cool1!"
