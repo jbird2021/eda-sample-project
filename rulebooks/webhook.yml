@@ -7,7 +7,7 @@
         port: 5002
   rules:
     - name: Read raw payload 
-      condition: #event.payload is defined
+      condition: 
         all:
           - event.meta is defined 
           - event.payload is defined
