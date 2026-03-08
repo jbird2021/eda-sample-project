@@ -12,4 +12,4 @@
           - event.meta is defined or event.payload is defined or event.payload.message == "Ansible is super cool!"
       action: 
         debug:
-          var: events.payload
+          var: event.payload
