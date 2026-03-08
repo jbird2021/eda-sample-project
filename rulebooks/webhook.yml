@@ -15,4 +15,4 @@
           - event.payload.message == "Ansible is super cool!"
       action: 
         debug:
-          var: event.payload
+          var: event.payload.message
