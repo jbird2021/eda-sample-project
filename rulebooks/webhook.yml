@@ -10,8 +10,8 @@
       condition: #event.payload is defined
         any:
           - events.meta is defined
-          - events.payload is defined
-          - events.payload.message == "Ansible is super cool!"
+ #         - events.payload is defined
+ #         - events.payload.message == "Ansible is super cool!"
       action: 
         debug:
           var: events.payload
