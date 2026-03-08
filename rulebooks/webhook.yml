@@ -9,9 +9,7 @@
     - name: Read raw payload 
       condition: #event.payload is defined
         any:
-          - events.meta is defined
- #         - events.payload is defined
- #         - events.payload.message == "Ansible is super cool!"
+          - event.meta is defined or event.payload is defined or events.payload.message == "Ansible is super cool!"
       action: 
         debug:
           var: events.payload
