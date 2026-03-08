@@ -12,8 +12,8 @@
         #any:
          # - event.meta is defined 
          # - event.payload is defined
-          - event.payload.message == "Ansible is super cool1!"
-          - event.payload.message == "Ansible is super cool!"
+         # - event.payload.message == "Ansible is super cool1!"
+         # - event.payload.message == "Ansible is super cool!"
       action: 
         debug:
           var: event.payload.message
