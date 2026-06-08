@@ -1,0 +1,41 @@
+---
+
+- name: Logicmonitor Alert Response
+  hosts: localhost
+  sources:
+    - name: "LogicMonitor Webhook"
+      ansible.eda.webhook:
+        port: 5555
+        host: 0.0.0.0
+
+  rules:
+    - name: Trigger workflow on critical service alert
+      condition: >
+        event.payload.datapoint == "State"
+        and event.payload.level == "critical"
+        and (
+          event.payload.datasource is search("World Wide Web Publishing Service") or
+          event.payload.datasource is search("WMI Performance Adapter") or
+          event.payload.datasource is search("Rubrik Backup Service") or
+          event.payload.datasource is search("Onpremises data gateway service") or
+          event.payload.datasource is search("Web Application Proxy Service")
+        )
+      action:
+        run_workflow_template:
+          name: "wf_eda_service_restart"
+          organization: "Bright Horizons Infrastructure"
+          job_args:
+            extra_vars:
+              lm_vm_name: "{{ event.payload.hostname }}"
+              lm_instance: "{{ event.payload.instance }}"
+              #lm_datapoint: "{{ event.payload.datapoint }}"
+              #lm_datasource: "{{ event.payload.datasource }}"
+              #lm_eventsource: "{{ event.payload.eventsource }}"
+              #lm_host: "{{ event.payload.host }}"
+              #lm_level: "{{ event.payload.level }}"
+              #lm_start: "{{ event.payload.start }}"
+              #lm_status: "{{ event.payload.status }}"
+              #lm_type: "{{ event.payload.type }}"
+              #lm_value: "{{ event.payload.value }}"
+        debug:
+          msg: "Received service alert event: {{ event }}"
